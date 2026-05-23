@@ -1,8 +1,8 @@
-import { Stack } from 'expo-router'
-import { useThemeColor } from '@/hooks/use-theme-color'
+import { useThemeColor } from "@/hooks/use-theme-color";
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  const colors = useThemeColor()
+  const colors = useThemeColor();
 
   return (
     <Stack
@@ -14,5 +14,5 @@ export default function RootLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="form" />
     </Stack>
-  )
+  );
 }
