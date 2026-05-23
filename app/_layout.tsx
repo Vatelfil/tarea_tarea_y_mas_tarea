@@ -1,6 +1,5 @@
 import { Stack } from 'expo-router'
 import { useThemeColor } from '@/hooks/use-theme-color'
-import { useColorScheme } from '@/hooks/use-color-scheme'
 
 export default function RootLayout() {
   const colors = useThemeColor()
