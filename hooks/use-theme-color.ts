@@ -1,6 +1,3 @@
-import { theme, ThemeColors } from '@/constants/theme'
-import { useColorScheme } from '@/hooks/use-color-scheme'
-
 import { theme, ThemeColors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 

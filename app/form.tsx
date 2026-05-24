@@ -132,12 +132,18 @@ export default function FormScreen() {
       borderRadius: 16,
       borderWidth: 1.5,
       borderColor: colors.border,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     backButtonText: {
-      fontSize: 24,
+      width: 32,
+      height: 32,
+      fontSize: 20,
+      lineHeight: 32,
       color: colors.primary,
-      alignSelf: 'center',
-      lineHeight: 17.5,
+      textAlign: 'center',
+      textAlignVertical: 'center',
+      includeFontPadding: false,
     },
     headerTitle: {
       fontSize: 20,
@@ -314,7 +320,7 @@ export default function FormScreen() {
         />
 
         {/* 2. INTENSIDAD / TOSTADO */}
-        <FieldLabel>Intensidad / Tostado</FieldLabel>
+        <FieldLabel>Intensidad</FieldLabel>
         <ScrollView
           ref={scrollViewRef}
           horizontal
@@ -322,7 +328,7 @@ export default function FormScreen() {
           contentContainerStyle={styles.intensidadScrollView}
           style={styles.intensidadContainer}
         >
-          {Array.from({ length: 13 }, (_, i) => i + 1).map(n => {
+          {Array.from({ length: 3 }, (_, i) => i + 1).map(n => {
             const active = n === intensidad
             return (
               <Pressable
