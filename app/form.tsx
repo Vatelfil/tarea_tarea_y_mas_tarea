@@ -314,7 +314,7 @@ export default function FormScreen() {
         />
 
         {/* 2. INTENSIDAD / TOSTADO */}
-        <FieldLabel>Intensidad / Tostado</FieldLabel>
+        <FieldLabel>Intensidad</FieldLabel>
         <ScrollView
           ref={scrollViewRef}
           horizontal
@@ -322,7 +322,7 @@ export default function FormScreen() {
           contentContainerStyle={styles.intensidadScrollView}
           style={styles.intensidadContainer}
         >
-          {Array.from({ length: 13 }, (_, i) => i + 1).map(n => {
+          {Array.from({ length: 3 }, (_, i) => i + 1).map(n => {
             const active = n === intensidad
             return (
               <Pressable

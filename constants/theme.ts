@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export type ThemeColors = {
   background: string
   surface: string
@@ -10,17 +12,6 @@ export type ThemeColors = {
 
 export type ThemeMode = 'light' | 'dark'
 
-export type ThemeColors = {
-  text: string;
-  background: string;
-  accent: string;
-  border: string;
-  surface: string;
-  primary: string;
-  textMuted: string;
-};
-
-export type ThemeMode = 'light' | 'dark'; 
 
 export const theme: Record<ThemeMode, ThemeColors> = {
   light: {
@@ -66,4 +57,4 @@ export const Fonts = Platform.select({
     rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif, Nunito",
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   },
-}
+})
