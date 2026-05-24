@@ -1,7 +1,9 @@
+/** Ire modificando esto de acuerdo a como sera */
+
 export type CoffeeRecord = {
-  id: string
-  marca: string
-  intensidad: 1 | 2 | 3
-  tipo: string
-  sabores: string[]
-}
+  id: string;
+  marca: string;
+  intensidad: number;
+  tipo: string;
+  sabores: string[];
+};
