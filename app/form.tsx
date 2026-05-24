@@ -3,13 +3,7 @@ import { View, Text, StyleSheet, TextInput, Pressable, ScrollView, Alert } from 
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
 import { useThemeColor } from '@/hooks/use-theme-color'
-
-type FormState = {
-  marca: string
-  intensidad: 1 | 2 | 3 | null
-  tipo: string | null
-  sabores: string[]
-}
+import { useStorage } from '@/hooks/use-storage'
 
 const TIPOS = ['Entero', 'Molido', 'Cápsulas', 'Instantáneo'] as const
 const SABORES = ['Vainilla', 'Chocolate'] as const
@@ -19,20 +13,24 @@ export default function FormScreen() {
   const router = useRouter()
   const insets = useSafeAreaInsets()
 
+  const { saveRecord } = useStorage()
+
   const [marca, setMarca] = useState<string>('')
   const [intensidad, setIntensidad] = useState<1 | 2 | 3 | null>(null)
   const [tipo, setTipo] = useState<string | null>(null)
   const [sabores, setSabores] = useState<string[]>([])
 
-  const handleSave = (): void => {
+  const handleSave = async (): Promise<void> => {
     if (!marca.trim() || intensidad === null) {
       Alert.alert('Campos requeridos', 'Completa la marca e intensidad')
       return
     }
-    const data: FormState = { marca, intensidad, tipo, sabores }
-    // TODO: Benja reemplaza este console.log con su hook useStorage
-    console.log('Guardando registro:', data)
-    router.back()
+    try {
+      await saveRecord({ marca, intensidad, tipo: tipo ?? '', sabores })
+      router.back()
+    } catch {
+      Alert.alert('Error', 'No se pudo guardar el registro')
+    }
   }
 
   function FieldLabel({ children }: { children: string }) {

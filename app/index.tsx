@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { View, Text, StyleSheet, FlatList, Pressable, Appearance } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useRouter } from 'expo-router'
+import { useRouter, useFocusEffect } from 'expo-router'
 import { useThemeColor } from '@/hooks/use-theme-color'
 import { useColorScheme } from '@/hooks/use-color-scheme'
+import { useStorage } from '@/hooks/use-storage'
 import type { CoffeeRecord } from '@/types/coffee'
 
 export default function LandingScreen() {
@@ -27,7 +28,13 @@ export default function LandingScreen() {
     })
   }
 
-  const coffeeData: CoffeeRecord[] = []
+  const { records, loadRecords, deleteRecord } = useStorage()
+
+  useFocusEffect(
+    useCallback(() => {
+      loadRecords()
+    }, [loadRecords])
+  )
 
   const styles = StyleSheet.create({
     container: {
@@ -205,8 +212,15 @@ export default function LandingScreen() {
     <View style={styles.card}>
       <View style={styles.cardRow1}>
         <Text style={styles.cardMarca}>{item.marca}</Text>
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{item.tipo}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          {item.tipo ? (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{item.tipo}</Text>
+            </View>
+          ) : null}
+          <Pressable onPress={() => deleteRecord(item.id)} hitSlop={8}>
+            <Text style={{ color: colors.textMuted, fontSize: 18, lineHeight: 20 }}>×</Text>
+          </Pressable>
         </View>
       </View>
       <View style={styles.cardRow2}>
@@ -246,7 +260,7 @@ export default function LandingScreen() {
 
       {/* FLATLIST */}
       <FlatList
-        data={coffeeData}
+        data={records}
         keyExtractor={item => item.id}
         style={{ flex: 1 }}
         contentContainerStyle={styles.listContent}
