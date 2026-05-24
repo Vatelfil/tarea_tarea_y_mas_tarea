@@ -1,14 +1,4 @@
-export type ThemeColors = {
-  background: string
-  surface: string
-  primary: string
-  accent: string
-  text: string
-  textMuted: string
-  border: string
-}
-
-export type ThemeMode = 'light' | 'dark'
+import { Platform } from 'react-native';
 
 export type ThemeColors = {
   text: string;
@@ -20,7 +10,7 @@ export type ThemeColors = {
   textMuted: string;
 };
 
-export type ThemeMode = 'light' | 'dark'; 
+export type ThemeMode = 'light' | 'dark';
 
 export const theme: Record<ThemeMode, ThemeColors> = {
   light: {
@@ -45,13 +35,9 @@ export const theme: Record<ThemeMode, ThemeColors> = {
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
@@ -66,4 +52,4 @@ export const Fonts = Platform.select({
     rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif, Nunito",
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   },
-}
+});
