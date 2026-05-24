@@ -322,7 +322,7 @@ export default function FormScreen() {
           contentContainerStyle={styles.intensidadScrollView}
           style={styles.intensidadContainer}
         >
-          {Array.from({ length: 13 }, (_, i) => i + 1).map(n => {
+          {([1, 2, 3] as const).map(n => {
             const active = n === intensidad
             return (
               <Pressable

@@ -1,9 +1,10 @@
 import { Fonts } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useThemeColor } from '@/hooks/use-theme-color';
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Appearance, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useStorage } from '@/hooks/use-storage';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { Appearance, FlatList, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function Home() {
@@ -26,6 +27,14 @@ export default function Home() {
             return currentMode === 'light' ? 'dark' : 'light';
         })
     }
+
+    const { records, loadRecords, deleteRecord } = useStorage();
+
+    useFocusEffect(
+        useCallback(() => {
+            loadRecords();
+        }, [loadRecords])
+    );
 
     const styles = StyleSheet.create({
         container: {
@@ -152,6 +161,73 @@ export default function Home() {
                 <Text style={styles.heroTitle}>Tu café, registrado.</Text>
                 <Text style={styles.heroSubtitle}>Lleva un control de tus degustaciones y comparte tus experiencias</Text>
             </View>
+
+            {/* Label */}
+            <Text style={{
+                fontSize: 11, fontWeight: '500', color: colors.textMuted,
+                letterSpacing: 1, textTransform: 'uppercase',
+                paddingHorizontal: 20, marginTop: 20, marginBottom: 8
+            }}>
+                Mis registros
+            </Text>
+
+            {/* Lista */}
+            <FlatList
+                data={records}
+                keyExtractor={item => item.id}
+                style={{ flex: 1 }}
+                contentContainerStyle={{
+                    paddingHorizontal: 20, gap: 10,
+                    paddingBottom: 20, flexGrow: 1
+                }}
+                ListEmptyComponent={
+                    <View style={{
+                        flex: 1, alignItems: 'center',
+                        justifyContent: 'center', padding: 32
+                    }}>
+                        <Text style={{ fontSize: 13, color: colors.textMuted }}>
+                            Aún no hay registros
+                        </Text>
+                    </View>
+                }
+                renderItem={({ item }) => (
+                    <View style={{
+                        backgroundColor: colors.surface,
+                        borderRadius: 14, borderWidth: 1,
+                        borderColor: colors.border,
+                        paddingVertical: 12, paddingHorizontal: 14
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                fontSize: 15, fontWeight: '600', color: colors.text
+                            }}>
+                                {item.marca}
+                            </Text>
+                            <View style={{
+                                backgroundColor: colors.accent, borderRadius: 99,
+                                paddingVertical: 3, paddingHorizontal: 8
+                            }}>
+                                <Text style={{
+                                    fontSize: 10, color: colors.background, fontWeight: '500'
+                                }}>
+                                    {item.tipo ?? 'Sin tipo'}
+                                </Text>
+                            </View>
+                        </View>
+                        <Text style={{
+                            fontSize: 11, color: colors.textMuted, marginTop: 4
+                        }}>
+                            Tostado {item.intensidad} · {item.sabores.length > 0
+                                ? item.sabores.join(', ')
+                                : 'Sin sabor'}
+                        </Text>
+                    </View>
+                )}
+            />
 
             {/* FOOTER */}
             <View style={styles.footer}>
