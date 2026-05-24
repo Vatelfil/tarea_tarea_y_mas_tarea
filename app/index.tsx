@@ -236,7 +236,7 @@ export default function Home() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Image
-                    source={mode === 'light' ? require('@/assets/images/icon-claro.png') : require('@/assets/images/icon-dark.png')}
+                    source={mode === 'light' ? require('@/assets/images/iconoclaro.png') : require('@/assets/images/icon-dark.png')}
                     style={styles.logo}
                 />
                 <Pressable onPress={toggleTheme} style={styles.themeButton}>
