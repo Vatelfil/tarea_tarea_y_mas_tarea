@@ -31,8 +31,6 @@ export default function FormScreen() {
   const scrollViewRef = useRef<ScrollView>(null)
   const screenWidth = Dimensions.get('window').width
 
-  const { saveRecord } = useStorage()
-
   const [marca, setMarca] = useState<string>('')
   const [intensidad, setIntensidad] = useState<number | null>(null)
   const [tipo, setTipo] = useState<string>('')
